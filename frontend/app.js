@@ -20,6 +20,9 @@ const cartButton = document.getElementById("view-cart");
 // Becomes true after a successful payment.
 let paid = false;
 
+// Counts order numbers for this page session (starts at #1).
+const orderBook = newOrderBook();
+
 // Render the menu into the page once the page has loaded.
 menuContainer.innerHTML = renderMenu(menu, CATEGORIES);
 
@@ -65,17 +68,13 @@ function handlePayment() {
     return;
   }
 
-  // Valid: show a brief "Processing" step, then success.
+  // Valid: show a brief "Processing" step, then the confirmation.
   checkoutView.innerHTML = '<p class="processing">Processing&hellip;</p>';
   setTimeout(() => {
     paid = true;
-    emptyCart(cart);
+    const order = placeOrder(orderBook, cart);
     updateCartView();
-    cartCountElement.textContent = 0;
-    checkoutView.innerHTML =
-      '<h2>Payment successful</h2>' +
-      '<p>Your order has been paid. Thank you!</p>' +
-      '<button id="done-button" type="button">Done</button>';
+    checkoutView.innerHTML = renderConfirmation(order);
     const doneButton = document.getElementById("done-button");
     if (doneButton) {
       doneButton.addEventListener("click", () => showView("menu"));

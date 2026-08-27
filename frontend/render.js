@@ -104,7 +104,17 @@ function renderCheckout(errors) {
   );
 }
 
+// Render the order confirmation shown after a successful payment.
+function renderConfirmation(order) {
+  return (
+    '<h2>Order confirmed</h2>' +
+    '<p class="order-number">Order #' + order.number + "</p>" +
+    '<p>Your order has been sent to the kitchen. Thank you!</p>' +
+    '<button id="done-button" type="button">Done</button>'
+  );
+}
+
 // Works in Node for testing.
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { renderMenu, renderCart, renderCheckout };
+  module.exports = { renderMenu, renderCart, renderCheckout, renderConfirmation };
 }

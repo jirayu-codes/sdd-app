@@ -1,19 +1,24 @@
 // Papoi page script.
 //
 // This file brings everything together on the page:
-//   - it renders the menu and the cart,
-//   - it toggles between the menu view and the cart view, and
-//   - it listens for clicks on "Add to cart" and the cart +, -, and Remove
-//     buttons, updating the cart and the header counter.
+//   - it renders the menu, the cart, and the checkout form,
+//   - it toggles between the menu, cart, and checkout views, and
+//   - it listens for clicks on "Add to cart", the cart +, -, and Remove
+//     buttons, and the checkout form, updating the page to match.
 //
-// The menu, render, and cart logic live in their own files (menu.js,
-// render.js, cart.js) so they can also be tested in Node.
+// The menu, render, cart, and checkout logic live in their own files
+// (menu.js, render.js, cart.js, checkout.js) so they can also be tested in
+// Node.
 
 const menuContainer = document.getElementById("menu");
 const cartView = document.getElementById("cart-view");
+const checkoutView = document.getElementById("checkout-view");
 const cartCountElement = document.getElementById("cart-count");
 const menuButton = document.getElementById("view-menu");
 const cartButton = document.getElementById("view-cart");
+
+// Becomes true after a successful payment.
+let paid = false;
 
 // Render the menu into the page once the page has loaded.
 menuContainer.innerHTML = renderMenu(menu, CATEGORIES);
@@ -24,12 +29,69 @@ function updateCartView() {
   cartCountElement.textContent = cartCount(cart);
 }
 
-// Switch which view is visible: "menu" or "cart".
+// Show the checkout view with a fresh (or re-styled) payment form.
+function showCheckoutForm(errors) {
+  checkoutView.innerHTML = renderCheckout(errors);
+  const form = document.getElementById("checkout-form");
+  const cardInput = document.getElementById("payment-card");
+
+  // Format the card number into groups of four as the customer types.
+  if (cardInput) {
+    cardInput.addEventListener("input", () => {
+      cardInput.value = formatCardNumber(cardInput.value);
+    });
+  }
+
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      handlePayment();
+    });
+  }
+}
+
+// Read the form, validate it, and either show the errors or process.
+function handlePayment() {
+  const details = {
+    name: document.getElementById("payment-name").value,
+    cardNumber: document.getElementById("payment-card").value,
+    expiry: document.getElementById("payment-expiry").value,
+    cvc: document.getElementById("payment-cvc").value
+  };
+
+  const errors = validatePayment(details, new Date());
+  if (errors.length > 0) {
+    showCheckoutForm(errors);
+    return;
+  }
+
+  // Valid: show a brief "Processing" step, then success.
+  checkoutView.innerHTML = '<p class="processing">Processing&hellip;</p>';
+  setTimeout(() => {
+    paid = true;
+    emptyCart(cart);
+    updateCartView();
+    cartCountElement.textContent = 0;
+    checkoutView.innerHTML =
+      '<h2>Payment successful</h2>' +
+      '<p>Your order has been paid. Thank you!</p>' +
+      '<button id="done-button" type="button">Done</button>';
+    const doneButton = document.getElementById("done-button");
+    if (doneButton) {
+      doneButton.addEventListener("click", () => showView("menu"));
+    }
+  }, 1200);
+}
+
+// Switch which view is visible: "menu", "cart", or "checkout".
 function showView(view) {
   menuContainer.classList.toggle("hidden", view !== "menu");
   cartView.classList.toggle("hidden", view !== "cart");
+  checkoutView.classList.toggle("hidden", view !== "checkout");
   if (view === "cart") {
     updateCartView();
+  } else if (view === "checkout") {
+    showCheckoutForm();
   }
 }
 
@@ -48,10 +110,14 @@ menuContainer.addEventListener("click", (event) => {
   }
 });
 
-// Handle clicks inside the cart view: +, -, and Remove.
+// Handle clicks inside the cart view: +, -, Remove, and Checkout.
 cartView.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) {
+    return;
+  }
+  if (button.id === "checkout-button") {
+    showView("checkout");
     return;
   }
   const id = Number(button.getAttribute("data-item-id"));
@@ -66,6 +132,6 @@ cartView.addEventListener("click", (event) => {
   updateCartView();
 });
 
-// Toggle between the menu and cart views.
+// Toggle between the menu, cart, and checkout views.
 menuButton.addEventListener("click", () => showView("menu"));
 cartButton.addEventListener("click", () => showView("cart"));

@@ -48,6 +48,13 @@ function expect(actual) {
         throw new Error("Expected " + e + " but got " + a);
       }
     },
+    toBeGreaterThan(expected) {
+      if (!(actual > expected)) {
+        throw new Error(
+          "Expected " + JSON.stringify(actual) + " to be greater than " + JSON.stringify(expected)
+        );
+      }
+    },
     toBeTruthy() {
       if (!actual) {
         throw new Error("Expected " + JSON.stringify(actual) + " to be truthy");

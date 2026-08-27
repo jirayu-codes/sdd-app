@@ -67,11 +67,44 @@ function renderCart(cart, menu) {
 
   return (
     '<div class="cart-rows">' + rows + "</div>" +
-    '<div class="cart-total">Total: $' + total.toFixed(2) + "</div>"
+    '<div class="cart-total">Total: $' + total.toFixed(2) + "</div>" +
+    '<button id="checkout-button" type="button">Checkout</button>'
+  );
+}
+
+// Render the simulated payment form. Shows four fields and a Pay button, and
+// a list of error messages (if any).
+function renderCheckout(errors) {
+  const errorList = (errors || [])
+    .map(function (message) {
+      return '<li class="payment-error">' + message + "</li>";
+    })
+    .join("");
+
+  return (
+    '<h2>Checkout</h2>' +
+    '<form id="checkout-form" class="checkout-form">' +
+      '<label>Name on card' +
+        '<input id="payment-name" type="text" placeholder="Name on card" />' +
+      "</label>" +
+      '<label>Card number' +
+        '<input id="payment-card" type="text" inputmode="numeric" placeholder="Card number" />' +
+      "</label>" +
+      '<div class="checkout-row">' +
+        '<label>Expiry (MM/YY)' +
+          '<input id="payment-expiry" type="text" placeholder="MM/YY" />' +
+        "</label>" +
+        '<label>CVC' +
+          '<input id="payment-cvc" type="text" inputmode="numeric" placeholder="CVC" />' +
+        "</label>" +
+      "</div>" +
+      '<ul id="payment-errors" class="payment-errors">' + errorList + "</ul>" +
+      '<button id="pay-button" type="submit">Pay</button>' +
+    "</form>"
   );
 }
 
 // Works in Node for testing.
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { renderMenu, renderCart };
+  module.exports = { renderMenu, renderCart, renderCheckout };
 }

@@ -11,6 +11,8 @@ require("./menu.test.js");
 require("./render.test.js");
 require("./cart.test.js");
 require("./cart-render.test.js");
+require("./checkout.test.js");
+require("./checkout-render.test.js");
 
 const ok = summary();
 if (!ok) {

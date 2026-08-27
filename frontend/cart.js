@@ -68,6 +68,12 @@ function removeFromCart(cart, itemId) {
   return cart;
 }
 
+// Remove every entry from the cart (used after a successful payment).
+function emptyCart(cart) {
+  cart.splice(0, cart.length);
+  return cart;
+}
+
 // One shared cart for the running page.
 const cart = newCart();
 
@@ -80,6 +86,7 @@ if (typeof module !== "undefined" && module.exports) {
     cartTotal,
     increaseQuantity,
     decreaseQuantity,
-    removeFromCart
+    removeFromCart,
+    emptyCart
   };
 }

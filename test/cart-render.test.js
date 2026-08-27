@@ -33,3 +33,16 @@ test("each cart row has increase, decrease, and remove controls", () => {
   expect(html.includes("cart-decrease")).toBe(true);
   expect(html.includes("cart-remove")).toBe(true);
 });
+
+test("a non-empty cart renders a Checkout button", () => {
+  const cart = cartModule.newCart();
+  cartModule.addToCart(cart, menu[0]);
+  const html = renderCart(cart, menu);
+  expect(html.includes('id="checkout-button"')).toBe(true);
+});
+
+test("an empty cart does not show a Checkout button", () => {
+  const cart = cartModule.newCart();
+  const html = renderCart(cart, menu);
+  expect(html.includes('id="checkout-button"')).toBe(false);
+});

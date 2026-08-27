@@ -82,3 +82,11 @@ test("cartTotal sums price times quantity", () => {
   cartModule.addToCart(cart, menu[3]); // +5.00 -> total 13.50
   expect(cartModule.cartTotal(cart)).toBe(3.5 + 5.0 + 5.0);
 });
+
+test("emptyCart removes every entry from the cart", () => {
+  const cart = freshCart();
+  cartModule.addToCart(cart, menu[0]);
+  cartModule.addToCart(cart, menu[3]);
+  cartModule.emptyCart(cart);
+  expect(cart.length).toBe(0);
+});

@@ -1,0 +1,27 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 40rem;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
+  color: #333;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  background: #d2691e;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b3541a;
+}
+
+#result {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}

@@ -14,16 +14,19 @@ when the cart is not empty) opens a simulated secure payment form with name,
 card number, expiry, and CVC. The card number auto-formats into groups of
 four; the form validates the details and shows friendly error messages; and a
 valid test card runs a brief "Processing" step then a success state that
-marks the order paid and clears the cart. Payment is simulated — nothing is
-stored or sent.
+clears the cart. Payment is simulated — nothing is stored or sent.
+
+The **order confirmation** is built: after payment, the customer sees an
+order number (auto-incremented in memory, e.g. `#1`, `#2`, …) and an "order
+sent to kitchen" message, and a **Done** button returns to the menu. The
+order number and cart live in memory only and reset on refresh.
 
 The app has a simple Python backend serving the static files, and a
 no-dependency test runner (`npm test`) with passing Red/Green TDD tests.
 
 ## Next steps (in order of priority)
 
-1. **Order confirmation** — after payment, show "order sent to kitchen" as a
-   confirmation step.
+The core customer flow (menu → cart → checkout → confirmation) is complete.
 
 ## Long-term vision
 

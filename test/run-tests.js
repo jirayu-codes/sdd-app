@@ -10,6 +10,7 @@ const { summary } = require("./harness.js");
 require("./menu.test.js");
 require("./render.test.js");
 require("./cart.test.js");
+require("./cart-render.test.js");
 
 const ok = summary();
 if (!ok) {

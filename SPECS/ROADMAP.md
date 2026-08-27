@@ -2,8 +2,9 @@
 
 ## Current state
 
-Nothing is built yet. The project has an empty `frontend/index.html` skeleton
-and a browser-facing structure that is ready for the menu and cart to be added.
+Nothing is built yet. The **Papoi** project has an empty `frontend/index.html`
+skeleton and a browser-facing structure that is ready for the menu and cart to
+be added.
 
 ## Next steps (in order of priority)
 
@@ -18,5 +19,6 @@ and a browser-facing structure that is ready for the menu and cart to be added.
 
 ## Long-term vision
 
-- Turn the simple "send to kitchen" confirmation into a real **kitchen view** —
-  a separate screen where the kitchen receives incoming orders live.
+- Turn the simple "send to kitchen" confirmation into a real **kitchen view**
+  for Papoi — a separate screen where the kitchen receives incoming orders
+  live.

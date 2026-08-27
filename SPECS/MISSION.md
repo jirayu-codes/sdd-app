@@ -2,13 +2,13 @@
 
 ## Purpose
 
-A simple **cafe ordering system** for customers. A customer can browse the
+**Papoi** is a simple **cafe ordering system** for customers. A customer can browse the
 menu, build a cart, go through checkout, and get confirmation that their
 order has been sent to the kitchen.
 
 ## Who is it for
 
-People ordering at the cafe.
+People ordering at the cafe using Papoi.
 
 ## What success looks like
 

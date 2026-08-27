@@ -1,5 +1,7 @@
 # Tech
 
+**Papoi** is built with the following tech choices.
+
 ## Stack
 
 - **Vanilla HTML, CSS, and JavaScript** for the frontend. No frameworks or
@@ -19,7 +21,7 @@
 
 ## Simulated payment
 
-The checkout stage shows a card form (name, card number, expiry, CVC) with
+The checkout stage for Papoi shows a card form (name, card number, expiry, CVC) with
 fake card details. The card number auto-formats into groups of digits. No real
 payment is made. Confirming just marks the order as paid in memory.
 

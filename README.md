@@ -1,8 +1,8 @@
-# Cafe Ordering System
+# Papoi — Cafe Ordering System
 
-A simple cafe ordering system for customers: browse the menu, add items to a
-cart, change or remove them, check out with a simulated secure payment, and
-get confirmation that the order was sent to the kitchen.
+**Papoi** is a simple cafe ordering system for customers: browse the menu, add
+items to a cart, change or remove them, check out with a simulated secure
+payment, and get confirmation that the order was sent to the kitchen.
 
 Built with vanilla HTML, CSS, and JavaScript, served by a simple Python
 backend (`http.server`). No database — all data stays in memory while the

@@ -36,7 +36,42 @@ function renderMenu(menu, categories) {
   return sections.join("");
 }
 
+// Render the cart into HTML. One row per grouped entry with the item name,
+// quantity, line price, and +, -, and Remove controls. Shows the grand total.
+// Returns a friendly message when the cart is empty.
+function renderCart(cart, menu) {
+  if (cart.length === 0) {
+    return '<p class="empty-cart">Your cart is empty.</p>';
+  }
+
+  const total = cart.reduce((sum, entry) => sum + entry.item.price * entry.quantity, 0);
+
+  const rows = cart
+    .map((entry) => {
+      const id = entry.item.id;
+      const lineTotal = (entry.item.price * entry.quantity).toFixed(2);
+      return (
+        '<div class="cart-row">' +
+          '<div class="cart-name">' + entry.item.name + "</div>" +
+          '<div class="cart-line">' +
+            '<button class="cart-decrease" data-item-id="' + id + '">-</button>' +
+            '<span class="cart-quantity">' + entry.quantity + "</span>" +
+            '<button class="cart-increase" data-item-id="' + id + '">+</button>' +
+          "</div>" +
+          '<div class="cart-line-total">$' + lineTotal + "</div>" +
+          '<button class="cart-remove" data-item-id="' + id + '">Remove</button>' +
+        "</div>"
+      );
+    })
+    .join("");
+
+  return (
+    '<div class="cart-rows">' + rows + "</div>" +
+    '<div class="cart-total">Total: $' + total.toFixed(2) + "</div>"
+  );
+}
+
 // Works in Node for testing.
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { renderMenu };
+  module.exports = { renderMenu, renderCart };
 }

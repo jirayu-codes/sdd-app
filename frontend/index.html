@@ -12,7 +12,13 @@
     <p class="cart-counter">Cart: <span id="cart-count">0</span> item(s)</p>
   </header>
 
-  <main id="menu"></main>
+  <nav class="view-nav">
+    <button id="view-menu" type="button">Menu</button>
+    <button id="view-cart" type="button">Cart</button>
+  </nav>
+
+  <main id="menu" class="view"></main>
+  <main id="cart-view" class="view hidden"></main>
 
   <script src="menu.js"></script>
   <script src="render.js"></script>
